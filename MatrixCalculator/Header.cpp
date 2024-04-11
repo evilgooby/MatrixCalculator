@@ -258,32 +258,94 @@ MatrixCalculator MatrixCalculator::operator+=(const MatrixCalculator& matrix)
 	return *this;
 }
 
+MatrixCalculator MatrixCalculator::operator+(const MatrixCalculator& matrix)
+{
+	double** tempMatrix;
 
-//MatrixCalculator MatrixCalculator::operator*(const MatrixCalculator& matrix)
-//{
-//	double** tempMatrix;
-//
-//	tempMatrix = new double* [SIZE];
-//	for (int i = 0; i < SIZE; i++)
-//		tempMatrix[i] = new double[SIZE];
-//	for (int i = 0; i < SIZE; i++)
-//		for (int j = 0; j < SIZE; j++)
-//			tempMatrix[i][j] = 0;
-//
-//	for (int i = 0; i < SIZE; i++)
-//		for (int k = 0; k < SIZE; k++)
-//			for (int j = 0; j < SIZE; j++)
-//				tempMatrix[i][k] += matrix1[i][j] * matrix.matrix1[j][k];
-//
-//	copyMatrix(tempMatrix);
-//	clearMemory(tempMatrix, SIZE);
-//	return *this;
-//}
-//
-//MatrixCalculator MatrixCalculator::operator=(const MatrixCalculator& matrix)
-//{
-//	for (int i = 0; i < SIZE; i++)
-//		for (int j = 0; j < SIZE; j++)
-//			matrix1[i][j] = matrix.matrix1[i][j];
-//	return *this;
-//}
+	tempMatrix = new double* [SIZE];
+	for (int i = 0; i < SIZE; i++)
+		tempMatrix[i] = new double[SIZE];
+	for (int i = 0; i < SIZE; i++)
+		for (int j = 0; j < SIZE; j++)
+			tempMatrix[i][j] = 0;
+
+	for (int i = 0; i < SIZE; i++)
+		for (int k = 0; k < SIZE; k++)
+			for (int j = 0; j < SIZE; j++)
+				tempMatrix[i][k] += matrix1[i][j] + matrix.matrix1[j][k];
+
+	copyMatrix(tempMatrix);
+	clearMemory(tempMatrix, SIZE);
+	return *this;
+}
+
+
+MatrixCalculator MatrixCalculator::operator*(const MatrixCalculator& matrix)
+{
+	double** tempMatrix;
+	tempMatrix = new double* [SIZE];
+	for (int i = 0; i < SIZE; i++)
+		tempMatrix[i] = new double[SIZE];
+	for (int i = 0; i < SIZE; i++)
+		for (int j = 0; j < SIZE; j++)
+			tempMatrix[i][j] = 0;
+
+	for (int i = 0; i < SIZE; i++)
+		for (int k = 0; k < SIZE; k++)
+			for (int j = 0; j < SIZE; j++)
+				tempMatrix[i][k] += matrix1[i][j] * matrix.matrix1[j][k];
+
+	copyMatrix(tempMatrix);
+	clearMemory(tempMatrix, SIZE);
+	return *this;
+}
+
+MatrixCalculator& MatrixCalculator::operator=(const MatrixCalculator& matrix)
+{
+	for (int i = 0; i < SIZE; i++)
+		for (int j = 0; j < SIZE; j++)
+			matrix1[i][j] = matrix.matrix1[i][j];
+	return *this;
+}
+
+MatrixCalculator MatrixCalculator::operator-=(const MatrixCalculator& matrix)
+{
+	double** tempMatrix;
+
+	tempMatrix = new double* [SIZE];
+	for (int i = 0; i < SIZE; i++)
+		tempMatrix[i] = new double[SIZE];
+	for (int i = 0; i < SIZE; i++)
+		for (int j = 0; j < SIZE; j++)
+			tempMatrix[i][j] = 0;
+
+	for (int i = 0; i < SIZE; i++)
+		for (int k = 0; k < SIZE; k++)
+			for (int j = 0; j < SIZE; j++)
+				tempMatrix[i][k] += matrix1[i][j] - matrix.matrix1[j][k];
+
+	copyMatrix(tempMatrix);
+	clearMemory(tempMatrix, SIZE);
+	return *this;
+}
+
+MatrixCalculator MatrixCalculator::operator-(const MatrixCalculator& matrix)
+{
+	double** tempMatrix;
+
+	tempMatrix = new double* [SIZE];
+	for (int i = 0; i < SIZE; i++)
+		tempMatrix[i] = new double[SIZE];
+	for (int i = 0; i < SIZE; i++)
+		for (int j = 0; j < SIZE; j++)
+			tempMatrix[i][j] = 0;
+
+	for (int i = 0; i < SIZE; i++)
+		for (int k = 0; k < SIZE; k++)
+			for (int j = 0; j < SIZE; j++)
+				tempMatrix[i][k] += matrix1[i][j] - matrix.matrix1[j][k];
+
+	copyMatrix(tempMatrix);
+	clearMemory(tempMatrix, SIZE);
+	return *this;
+}
