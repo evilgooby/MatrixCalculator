@@ -7,13 +7,15 @@ MatrixCalculator::MatrixCalculator(int const SIZE)
 	for (int i = 0; i < SIZE; i++)
 		matrix1[i] = new double[SIZE];
 
-	for (int i = 0; i < SIZE; i++)
-	{
-		for (int j = 0; j < SIZE; j++)
-		{
-			matrix1[i][j] = 0;
-		}
-	}
+	//for (int i = 0; i < SIZE; i++)
+	//{
+	//	for (int j = 0; j < SIZE; j++)
+	//	{
+	//		matrix1[i][j] = 0;
+	//	}
+	//}
+
+	AddMatrix();
 }
 
 MatrixCalculator::~MatrixCalculator()
@@ -25,7 +27,7 @@ MatrixCalculator::~MatrixCalculator()
 
 void MatrixCalculator::AddMatrix()
 {
-	cout << "Заполним матрицу числами" << endl;
+	cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ" << endl;
 	for (int i = 0; i < SIZE; i++)
 		for (int j = 0; j < SIZE; j++)
 			cin >> matrix1[i][j];
@@ -99,7 +101,7 @@ int MatrixCalculator::findDet(double** mas, int n)
 {
 	if (n < 0)
 	{
-		cout << "Определитель вычислить невозможно!";
+		cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!";
 		return 0;
 	}
 	else if (n == 1)

@@ -4,14 +4,11 @@ int main()
 {
 	setlocale(LC_ALL, "rus");
 	int SIZE;
-	cout << "Ââåäèòå ðàçìåð ìàòðèöû" << endl; cin >> SIZE;
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" << endl; cin >> SIZE;
 
 	MatrixCalculator m(SIZE);
 	MatrixCalculator m1(SIZE);
 	MatrixCalculator m3(SIZE);
-	m.AddMatrix();
-	m1.AddMatrix();
-	m3.AddMatrix();
 
 
 	m = m1 * m3;
