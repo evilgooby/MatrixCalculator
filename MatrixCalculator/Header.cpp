@@ -7,14 +7,6 @@ MatrixCalculator::MatrixCalculator(int const SIZE)
 	for (int i = 0; i < SIZE; i++)
 		matrix1[i] = new double[SIZE];
 
-	//for (int i = 0; i < SIZE; i++)
-	//{
-	//	for (int j = 0; j < SIZE; j++)
-	//	{
-	//		matrix1[i][j] = 0;
-	//	}
-	//}
-
 	AddMatrix();
 }
 
