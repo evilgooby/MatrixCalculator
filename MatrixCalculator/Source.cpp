@@ -8,12 +8,10 @@ int main()
 
 	MatrixCalculator m(SIZE);
 	MatrixCalculator m1(SIZE);
-	MatrixCalculator m3(SIZE);
-
-
-	m = m1 * m3;
-	
-	m.checkMatrix();
+    m1 = move(m);
+    std::cout<< m.getSIZE(m) << " " << m1.getSIZE(m1);
+    m.checkMatrix();
+	//m1.checkMatrix();
 
 	return 0;
 }

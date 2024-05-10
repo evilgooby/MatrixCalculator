@@ -1,15 +1,42 @@
 #include"Header.h"
 
-MatrixCalculator::MatrixCalculator(int const SIZE)
-{
+MatrixCalculator::MatrixCalculator(int const SIZE){
 	this->SIZE = SIZE;
 	matrix1 = new double* [SIZE];
 	for (int i = 0; i < SIZE; i++)
 		matrix1[i] = new double[SIZE];
-
 	AddMatrix();
 }
-
+MatrixCalculator::MatrixCalculator(const MatrixCalculator &matrix) {
+    std::cout<<"Вызвался конструктор копирования"<<std::endl;
+    this->SIZE = matrix.SIZE;
+    matrix1 = new double* [getSIZE(matrix)];
+    for (int i = 0; i < getSIZE(matrix); i++)
+        matrix1[i] = new double[getSIZE(matrix)];
+    for (int i = 0; i < getSIZE(matrix); i++)
+        for (int j = 0; j < getSIZE(matrix); j++)
+            matrix1[i][j] = matrix.matrix1[i][j];
+}
+MatrixCalculator::MatrixCalculator(MatrixCalculator &&matrix) {
+    std::cout<<"Вызвался конструктор перемещения"<<std::endl;
+    clearMemory(matrix1,SIZE);
+    SIZE = matrix.SIZE;
+    matrix1 = matrix.matrix1;
+    matrix.matrix1 = nullptr;
+    matrix.SIZE = 0;
+}
+void MatrixCalculator::operator=(const MatrixCalculator& matrix){
+    clearMemory(matrix1,SIZE);
+    SIZE = matrix.SIZE;
+    matrix1 = matrix.matrix1;
+}
+void MatrixCalculator::operator=(MatrixCalculator&& matrix){
+    clearMemory(matrix1,SIZE);
+    SIZE = matrix.SIZE;
+    matrix1 = matrix.matrix1;
+    matrix.matrix1 = nullptr;
+    matrix.SIZE = 0;
+}
 MatrixCalculator::~MatrixCalculator()
 {
 	for (int i = 0; i < SIZE; i++)
@@ -17,16 +44,17 @@ MatrixCalculator::~MatrixCalculator()
 	delete[] matrix1;
 }
 
+int MatrixCalculator::getSIZE(const MatrixCalculator& matrix){
+    return matrix.SIZE;
+}
 void MatrixCalculator::AddMatrix()
 {
-	cout << "�������� ������� �������" << endl;
+	cout << "Ввод матрицы" << endl;
 	for (int i = 0; i < SIZE; i++)
 		for (int j = 0; j < SIZE; j++)
 			cin >> matrix1[i][j];
 }
-
-const void MatrixCalculator::checkMatrix()
-{
+const void MatrixCalculator::checkMatrix(){
 	cout << endl;
 	for (int i = 0; i < SIZE; i++)
 	{
@@ -36,9 +64,7 @@ const void MatrixCalculator::checkMatrix()
 	}
 	cout << endl;
 }
-
-const void MatrixCalculator::checkMatrix(double** tempMatrix)
-{
+const void MatrixCalculator::checkMatrix(double** tempMatrix){
 	cout << endl;
 	for (int i = 0; i < SIZE; i++)
 	{
@@ -48,12 +74,10 @@ const void MatrixCalculator::checkMatrix(double** tempMatrix)
 	}
 	cout << endl;
 }
-
 void MatrixCalculator::determinant()
 {
 	cout << findDet(matrix1, SIZE) << endl;
 }
-
 void MatrixCalculator::clearMemory(double** a, int n)
 {
 	for (int i = 0; i < n; i++) {
@@ -61,7 +85,6 @@ void MatrixCalculator::clearMemory(double** a, int n)
 	}
 	delete[] a;
 }
-
 double** MatrixCalculator::copyMatrix(double** tempMatrix)
 {
 	for (int i = 0; i < SIZE; i++)
@@ -69,7 +92,6 @@ double** MatrixCalculator::copyMatrix(double** tempMatrix)
 			matrix1[i][j] = tempMatrix[i][j];
 	return matrix1;
 }
-
 double** MatrixCalculator::GetMatr(double** mas, int rows, int cols, int row, int col)
 {
 	int di, dj;
@@ -88,12 +110,11 @@ double** MatrixCalculator::GetMatr(double** mas, int rows, int cols, int row, in
 	}
 	return p;
 }
-
 int MatrixCalculator::findDet(double** mas, int n)
 {
 	if (n < 0)
 	{
-		cout << "������������ ��������� ����������!";
+
 		return 0;
 	}
 	else if (n == 1)
@@ -127,7 +148,6 @@ int MatrixCalculator::findDet(double** mas, int n)
 		return d;
 	}
 }
-
 double** MatrixCalculator::Mreverse(double** mas, int m)
 {
 	double** tempMatrix = new double* [m];
@@ -146,12 +166,10 @@ double** MatrixCalculator::Mreverse(double** mas, int m)
 	}
 	return transpone(tempMatrix, m);
 }
-
 void MatrixCalculator::obratnaya()
 {
 	Mreverse(matrix1, SIZE);
 }
-
 double** MatrixCalculator::transpone(double** mas, int m)
 {
 	double** tempMatrix = new double* [m];
@@ -168,7 +186,6 @@ double** MatrixCalculator::transpone(double** mas, int m)
 	clearMemory(tempMatrix, m);
 	return matrix1;
 }
-
 double** MatrixCalculator::transpone()
 {
 	double** tempMatrix;
@@ -183,7 +200,6 @@ double** MatrixCalculator::transpone()
 	clearMemory(tempMatrix, SIZE);
 	return matrix1;
 }
-
 void MatrixCalculator::raiseToAPower(int power)
 {
 	double** tempMatrix;
@@ -202,7 +218,6 @@ void MatrixCalculator::raiseToAPower(int power)
 	copyMatrix(tempMatrix);
 	clearMemory(tempMatrix, SIZE);
 }
-
 void MatrixCalculator::Multiply(int num)
 {
 	for (int i = 0; i < SIZE; i++)
@@ -230,7 +245,6 @@ MatrixCalculator MatrixCalculator::operator*=(const MatrixCalculator& matrix)
 	clearMemory(tempMatrix, SIZE);
 	return *this;
 }
-
 MatrixCalculator MatrixCalculator::operator+=(const MatrixCalculator& matrix)
 {
 	double** tempMatrix;
@@ -251,7 +265,6 @@ MatrixCalculator MatrixCalculator::operator+=(const MatrixCalculator& matrix)
 	clearMemory(tempMatrix, SIZE);
 	return *this;
 }
-
 MatrixCalculator MatrixCalculator::operator+(const MatrixCalculator& matrix)
 {
 	double** tempMatrix;
@@ -272,8 +285,6 @@ MatrixCalculator MatrixCalculator::operator+(const MatrixCalculator& matrix)
 	clearMemory(tempMatrix, SIZE);
 	return *this;
 }
-
-
 MatrixCalculator MatrixCalculator::operator*(const MatrixCalculator& matrix)
 {
 	double** tempMatrix;
@@ -293,15 +304,6 @@ MatrixCalculator MatrixCalculator::operator*(const MatrixCalculator& matrix)
 	clearMemory(tempMatrix, SIZE);
 	return *this;
 }
-
-MatrixCalculator& MatrixCalculator::operator=(const MatrixCalculator& matrix)
-{
-	for (int i = 0; i < SIZE; i++)
-		for (int j = 0; j < SIZE; j++)
-			matrix1[i][j] = matrix.matrix1[i][j];
-	return *this;
-}
-
 MatrixCalculator MatrixCalculator::operator-=(const MatrixCalculator& matrix)
 {
 	double** tempMatrix;
@@ -322,7 +324,6 @@ MatrixCalculator MatrixCalculator::operator-=(const MatrixCalculator& matrix)
 	clearMemory(tempMatrix, SIZE);
 	return *this;
 }
-
 MatrixCalculator MatrixCalculator::operator-(const MatrixCalculator& matrix)
 {
 	double** tempMatrix;
@@ -343,3 +344,7 @@ MatrixCalculator MatrixCalculator::operator-(const MatrixCalculator& matrix)
 	clearMemory(tempMatrix, SIZE);
 	return *this;
 }
+
+
+
+
